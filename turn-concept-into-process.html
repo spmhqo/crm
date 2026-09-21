@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Turn Concept Into Process</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #064e3b; 
+      --bg-gradient-end: #020617;
+      --card-bg: rgba(16, 185, 129, 0.05);
+      --card-border: rgba(16, 185, 129, 0.2);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-heading: #ffffff;
+      --accent-primary: #10b981; 
+      --accent-hover: #34d399;
+      --accent-success: #059669;
+      --code-bg: rgba(0, 0, 0, 0.4);
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      flex-grow: 1;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    .input-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--accent-primary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .prompt-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prompt-label::after {
+      content: "";
+      height: 1px;
+      flex-grow: 1;
+      background: var(--card-border);
+    }
+
+    .prompt-text {
+      background-color: var(--code-bg);
+      padding: 24px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #ecfdf5;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .copy-button {
+      align-self: flex-end;
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: var(--accent-primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .copy-button:hover {
+      background-color: var(--accent-hover);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .copy-button.copied {
+      background-color: var(--accent-success);
+    }
+
+    .icon { width: 18px; height: 18px; }
+    .copied-icon { display: none; }
+    .copy-button.copied .copy-icon { display: none; }
+    .copy-button.copied .copied-icon { display: inline-block; }
+
+    footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Turn Concept Into Process</h1>
+    </header>
+
+    <div class="input-section">
+      <div class="field-group">
+        <label for="conceptInput">CONCEPT</label>
+        <textarea id="conceptInput" placeholder="Insert Concept Here"></textarea>
+      </div>
+      <div class="field-group">
+        <label for="audienceInput">TARGET AUDIENCE</label>
+        <textarea id="audienceInput" placeholder="Insert Target Audience Here"></textarea>
+      </div>
+      <div class="field-group">
+        <label for="propositionInput">MY PRODUCT'S PROPOSITION</label>
+        <textarea id="propositionInput" placeholder="Insert Proposition Here"></textarea>
+      </div>
+    </div>
+
+    <main>
+      <div class="prompt-card">
+        <div class="prompt-label">Generated Prompt</div>
+        <pre id="displayPrompt" class="prompt-text">I want to create a practical guidebook, which I will give away for free, to help the reader apply the following concept in practice.
+
+CONCEPT
+[Insert Concept Here]
+
+TARGET AUDIENCE
+[Insert Target Audience Here]
+
+MY PRODUCT'S PROPOSITION
+[Insert Proposition Here]
+
+TASK
+
+Create a complete, practical, step-by-step process showing the reader how to apply this concept in practice.
+
+The process should take the reader from the initial setup through to the completed outcome.
+
+RULES (MANDATORY)
+
+1. Provide the complete step-by-step execution process.
+
+2. Start from the initial setup and continue through every necessary step until the intended outcome is completed.
+
+3. Do not skip, combine, or jump over any necessary step. If one step depends on something being completed first, make that dependency explicit.
+
+4. Write each instruction as if you are guiding the reader live, in real time, while they are using their phone or computer.
+
+5. Make the instructions practical and actionable. The reader should be able to follow the guidebook and actually perform the process, rather than simply understand the concept theoretically.
+
+6. Identify the steps where AI can genuinely make the process easier, faster, or more effective.
+
+7. For every step that can be meaningfully completed with AI assistance, provide the exact AI prompt the reader should use.
+
+8. Do not introduce AI merely for the sake of using AI. Include AI assistance only where it provides a practical benefit.
+
+9. When an AI-assisted step requires information from the reader, clearly identify what information the reader needs to provide before using the prompt.
+
+10. Explain what the reader should do with the AI's output and what the next step is.
+
+11. Keep the process logically sequential so that completing one step naturally leads to the next.
+
+12. The guidebook should be sufficiently self-contained that the reader can apply the concept without needing to purchase another product to understand or complete the basic process.
+
+13. Use my PRODUCT'S PROPOSITION as contextual information when designing the guidebook. Do not turn the guidebook into a sales pitch unless a promotional element is explicitly required by the proposition.
+
+AI PROMPT TEMPLATES
+
+At the end of the guidebook, provide all the AI prompt templates required to execute the AI-assisted steps.
+
+Each prompt template must:
+
+- be standalone and reusable;
+- use [placeholders] wherever information needs to be changed;
+- clearly indicate what each [placeholder] represents;
+- be usable in a completely new chat;
+- be reusable for other niches, topics, audiences, or use cases simply by replacing the [placeholders] with the appropriate information;
+- contain all necessary instructions and context needed for the AI to perform that particular task.
+
+The prompt templates at the end must correspond exactly to the AI-assisted steps described in the guidebook.
+
+LANGUAGE AND WRITING STYLE
+
+Write the entire guidebook in the most spontaneous and natural-sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The language should be easily understandable to a 21-year-old reader while maintaining international standards of clarity and communication.
+
+Strict Rules:
+
+- Use only Bengali (India), unless a technical term, software name, AI tool name, or other term is more naturally expressed in English.
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing.
+- Use slightly formal, polite, and smoothly flowing sentence structures.
+- Maintain balanced pacing. Avoid abrupt or overly casual wording.
+- Do not use slang, regional grammar, Bangladeshi vocabulary, spelling, or expressions.
+- Maintain a clear, confident, and authoritative voice without becoming overly literary or academic.
+- The voice should feel like a close friend and trusted authority guiding the reader personally, one-on-one.
+- Be bold and direct, but remain warm, conversational, and approachable.
+- Prioritize clarity and practical usability over elaborate explanation.</pre>
+        <button class="copy-button" onclick="copyText('displayPrompt', this)">
+          <svg class="icon copy-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          <svg class="icon copied-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M4.5 12.75l6 6 9-13.5" /></svg>
+          <span class="button-text">Copy Prompt</span>
+        </button>
+      </div>
+    </main>
+
+    <footer>
+        Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </footer>
+  </div>
+
+  <script>
+    const conceptInput = document.getElementById('conceptInput');
+    const audienceInput = document.getElementById('audienceInput');
+    const propositionInput = document.getElementById('propositionInput');
+    const displayPrompt = document.getElementById('displayPrompt');
+    
+    const basePrompt = displayPrompt.textContent;
+
+    function updateDisplay() {
+      const conceptVal = conceptInput.value.trim() || "[Insert Concept Here]";
+      const audienceVal = audienceInput.value.trim() || "[Insert Target Audience Here]";
+      const propositionVal = propositionInput.value.trim() || "[Insert Proposition Here]";
+      
+      let updatedText = basePrompt;
+      updatedText = updatedText.split("[Insert Concept Here]").join(conceptVal);
+      updatedText = updatedText.split("[Insert Target Audience Here]").join(audienceVal);
+      updatedText = updatedText.split("[Insert Proposition Here]").join(propositionVal);
+      
+      displayPrompt.textContent = updatedText;
+    }
+
+    conceptInput.addEventListener('input', updateDisplay);
+    audienceInput.addEventListener('input', updateDisplay);
+    propositionInput.addEventListener('input', updateDisplay);
+
+    function copyText(elementId, btn) {
+      const text = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = btn.querySelector('.button-text');
+        const prevText = btnText.textContent;
+        btnText.textContent = 'Copied!';
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btnText.textContent = prevText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
