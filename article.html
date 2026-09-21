@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Article Strategist for Medium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #064e3b; 
+      --bg-gradient-end: #020617;
+      --card-bg: rgba(16, 185, 129, 0.05);
+      --card-border: rgba(16, 185, 129, 0.2);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-heading: #ffffff;
+      --accent-primary: #10b981; 
+      --accent-hover: #34d399;
+      --accent-success: #059669;
+      --code-bg: rgba(0, 0, 0, 0.4);
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      flex-grow: 1;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    /* Navigation Styling */
+    .input-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .nav-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn.active {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    .nav-btn:hover:not(.active) {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+
+    /* Input Section Styles */
+    .input-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+    }
+
+    .field-group {
+      display: none;
+      flex-direction: column;
+    }
+
+    .field-group.active {
+      display: flex;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--accent-primary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 16px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.2s;
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Prompt Card Styles */
+    .prompt-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prompt-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prompt-label::after {
+      content: "";
+      height: 1px;
+      flex-grow: 1;
+      background: var(--card-border);
+    }
+
+    .prompt-text {
+      background-color: var(--code-bg);
+      padding: 24px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #ecfdf5;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .copy-button {
+      align-self: flex-end;
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: var(--accent-primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+
+    .copy-button:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .copy-button.copied {
+      background-color: var(--accent-success);
+    }
+
+    .icon { width: 18px; height: 18px; }
+    .copied-icon { display: none; }
+    .copy-button.copied .copy-icon { display: none; }
+    .copy-button.copied .copied-icon { display: inline-block; }
+
+    footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Article</h1>
+      <div class="sub-header">for medium.com</div>
+    </header>
+
+    <div class="input-nav" id="tabNav">
+      <button class="nav-btn active" onclick="showTab('packageDetails')">Package Details</button>
+      <button class="nav-btn" onclick="showTab('pdfTitle')">PDF Title</button>
+      <button class="nav-btn" onclick="showTab('pdfSubTitle')">PDF Sub-Title</button>
+      <button class="nav-btn" onclick="showTab('pdfBody')">PDF Body</button>
+      <button class="nav-btn" onclick="showTab('gatewayProblem')">Gateway Problem</button>
+      <button class="nav-btn" onclick="showTab('pdfCta')">PDF CTA</button>
+    </div>
+
+    <div class="input-section">
+      <div id="packageDetails" class="field-group active">
+        <label>Ultimate Package Details</label>
+        <textarea id="input_package" placeholder="[Insert package details here]"></textarea>
+      </div>
+
+      <div id="pdfTitle" class="field-group">
+        <label>Free Report Title</label>
+        <textarea id="input_title" placeholder="[Insert title]"></textarea>
+      </div>
+
+      <div id="pdfSubTitle" class="field-group">
+        <label>Free Report Sub-Title</label>
+        <textarea id="input_subtitle" placeholder="[Insert sub-title]"></textarea>
+      </div>
+
+      <div id="pdfBody" class="field-group">
+        <label>Complete Body of Free Report</label>
+        <textarea id="input_body" placeholder="[Insert the complete body of the free report]"></textarea>
+      </div>
+
+      <div id="gatewayProblem" class="field-group">
+        <label>Gateway Problem</label>
+        <textarea id="input_gateway" placeholder="[Insert gateway problem]"></textarea>
+      </div>
+
+      <div id="pdfCta" class="field-group">
+        <label>End CTA of Free Report</label>
+        <textarea id="input_cta" placeholder="[Insert the end CTA of the free report here]"></textarea>
+      </div>
+    </div>
+
+    <main>
+      <div class="prompt-card">
+        <div class="prompt-label">Strategic Ideation Prompt</div>
+        <pre id="displayPrompt" class="prompt-text">Loading prompt template...</pre>
+        <button class="copy-button" id="copyBtn">
+          <svg class="icon copy-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          <svg class="icon copied-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M4.5 12.75l6 6 9-13.5" /></svg>
+          <span class="button-text">Copy Prompt</span>
+        </button>
+      </div>
+    </main>
+
+    <footer>
+        Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </footer>
+  </div>
+
+  <script>
+    // Tab Navigation Logic
+    function showTab(tabId) {
+      document.querySelectorAll('.field-group').forEach(group => group.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    const template = `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+ROLE
+
+You are a strategic content ideation and conversion-focused article strategist.
+
+Your job is to identify article ideas that can attract the right readers through Medium, deepen their understanding of a relevant problem, and naturally lead relevant readers to download the free report.
+
+The article must provide genuine standalone value. It should not feel like an advertisement for the free report.
+
+CONTEXT
+
+The ultimate package I want to sell through the free report:
+
+[Insert package details here]
+
+Details of the free report:
+
+Title:
+[Insert title]
+
+Sub-title:
+[Insert sub-title]
+
+Body:
+[Insert the complete body of the free report]
+
+The gateway problem addressed by the free report:
+
+[Insert gateway problem]
+
+Prompts I used to identify the gateway problem and assess its lead-magnet potential:
+
+1. Look at this product and identify 10 smaller problems a potential customer might experience immediately before they need it. Focus on problems that could be solved or partly solved with a short free report.
+
+2. Which of these would my ideal customer actually WANT enough to give me their email address?
+
+End CTA of the free report:
+
+[Insert the end CTA of the free report here]
+
+The content funnel is:
+
+Medium Article
+↓
+Reader encounters a relevant problem, question, tension, or situation
+↓
+Reader develops a clearer understanding of the issue
+↓
+Reader recognises the gateway problem or its relevance to them
+↓
+Reader develops a genuine need or desire for the next step
+↓
+Free Report Download
+↓
+Free Report provides the actionable process / next-step solution
+↓
+Free Report leads toward the Ultimate Package
+
+The ultimate objective of the proposed article:
+
+To generate relevant downloads of the above-mentioned free report.
+
+Therefore, do not optimise merely for clicks, views, curiosity, or virality.
+
+Prioritise ideas that are likely to attract readers who have a genuine relationship with the underlying problem and who could reasonably benefit from the free report.
+
+Treat conversion as the result of relevance, understanding, and genuine reader need—not as a reason to use persuasive or promotional tactics inside the article.
+
+Medium-specific article policy:
+
+মূল উদ্দেশ্য (Objective)
+
+কোনো বিষয়, ধারণা, ঘটনা বা সমস্যাকে তথ্য, বিশ্লেষণ ও যুক্তির মাধ্যমে গভীরভাবে ব্যাখ্যা করা, যাতে পাঠক বিষয়টি পরিষ্কারভাবে বুঝতে পারেন।
+
+সূক্ষ্ম পার্থক্য
+
+করার চেয়ে বোঝার ওপর বেশি জোর। এটি সাধারণত শিক্ষামূলক, তথ্যনির্ভর বা বিশ্লেষণধর্মী। লক্ষ্য হলো একটি বিষয়ে পাঠকের উপলব্ধি বাড়ানো—সমস্যাটি কী, কেন ঘটে, কীভাবে কাজ করে, এর পেছনে কী যুক্তি রয়েছে এবং এর প্রভাব কী—তা পরিষ্কার করা।
+
+Article-এর মধ্যে সমস্যাটি সমাধান করার জন্য কী কী করতে হবে বা সেই কাজগুলি কীভাবে করতে হবে—তার পূর্ণ actionable process শেখানো হবে না। অর্থাৎ understanding-এর depth থাকবে, কিন্তু solution execution-এর process থাকবে না।
+
+আদর্শ কাঠামো (Structure)
+
+শিরোনাম → ভূমিকা → প্রেক্ষাপট → তথ্য ও বিশ্লেষণ → উদাহরণ/প্রমাণ → উপসংহার
+
+TASK
+
+Give me 5 article ideas with the strongest potential to generate relevant downloads of the free report.
+
+For each article idea, identify:
+
+1. Article Idea / Working Title
+
+The central idea or proposed title of the article.
+
+2. Reader Problem / Tension
+
+The specific problem, question, desire, confusion, mistake, or tension that would make the target reader want to understand the article.
+
+This does not have to be an exact restatement of the gateway problem. It may be a distinct entry point that naturally leads the reader toward the gateway problem.
+
+3. Core Content Angle
+
+The specific perspective, argument, approach, or angle through which the article will explain the issue.
+
+4. What the Article Will Deliver
+
+The specific insight, understanding, explanation, analysis, or realisation the reader will receive from the article.
+
+The article should primarily deliver understanding rather than teach the complete process of solving the problem.
+
+5. Connection to the Gateway Problem
+
+Explain how the article naturally leads from its reader problem / tension to the gateway problem addressed by the free report.
+
+6. Why the Free Report Becomes the Natural Next Step
+
+Explain what additional need, unanswered question, deeper understanding, practical requirement, or next-step problem would make the free report relevant after reading the article.
+
+The reason must arise naturally from what the article establishes, rather than from artificial persuasion.
+
+7. Conversion Logic
+
+Briefly explain the progression:
+
+Reader Entry Problem / Tension
+→ Understanding
+→ Gateway Problem Awareness
+→ Genuine Need for the Next Step
+→ Free Report
+→ Ultimate Package
+
+IMPORTANT REQUIREMENTS
+
+* The article idea must provide genuine standalone value.
+* The article's primary reader-facing purpose is understanding, not selling.
+* The business objective is to generate relevant free-report downloads.
+* Do not make the article merely a promotional vehicle for the free report.
+* Do not use clickbait merely to increase curiosity.
+* Do not use exaggerated promises, artificial urgency, fear-based persuasion, or overt sales language merely to increase conversion.
+* Do not assume that every reader will download the report.
+* Focus on attracting and converting readers who have a genuine relationship with the underlying problem.
+* The Reader Problem / Tension may be a specific entry point into the gateway problem; it does not have to be an exact restatement of the gateway problem.
+* The connection between the article and the free report must be natural and logically justified.
+* The article may create awareness of a possible solution or explain why a solution is needed, but it should not teach the complete process of what to do to solve the problem.
+* Do not provide the complete actionable problem-solving process inside the article.
+* Clearly distinguish the value delivered by the article from the value delivered by the free report.
+* Do not make the article so complete that the free report becomes unnecessary.
+* Do not simply repeat the content of the free report as the article.
+* The article and the free report should have distinct but complementary value.
+* Prefer a naturally strong connection to the free report over a superficially persuasive one.
+* If an apparent connection between an article idea and the free report is weak, do not force the connection. Develop a different idea instead.
+* The 5 ideas must represent genuinely different content angles or reader-entry points, not merely five variations of the same idea or title.
+* Select the 5 ideas based on:
+  1. Relevance to the target reader
+  2. Potential to create meaningful understanding
+  3. Natural connection to the gateway problem
+  4. Natural relevance of the free report as the next step
+  5. Genuine standalone value
+  6. Meaningful differentiation from the other ideas
+* Do not rank, score, or declare one of the five ideas to be the overall winner. The task is to generate and develop five distinct ideas.
+* Follow the provided Medium-specific article policy strictly.
+* Do not invent information about the ultimate package, free report, target reader, or gateway problem that is not supported by the information provided.
+
+OUTPUT FORMAT
+
+First, briefly state the core conversion opportunity you identified from the provided context.
+
+Then provide the 5 article ideas in a table using these columns:
+
+| # | Article Idea / Working Title | Reader Problem / Tension | Core Content Angle | What the Article Will Deliver | Why the Free Report Becomes the Natural Next Step |
+
+After the table, provide the conversion logic for each idea.
+
+For each idea, briefly explain:
+
+Reader Entry Problem / Tension
+→ Understanding
+→ Gateway Problem
+→ Natural Need for Next Step
+→ Free Report
+
+Do not write the full articles. The task is to identify and develop the 5 article ideas only.`;
+
+    const inputs = {
+      'package': { el: document.getElementById('input_package'), placeholder: '[Insert package details here]' },
+      'title': { el: document.getElementById('input_title'), placeholder: '[Insert title]' },
+      'subtitle': { el: document.getElementById('input_subtitle'), placeholder: '[Insert sub-title]' },
+      'body': { el: document.getElementById('input_body'), placeholder: '[Insert the complete body of the free report]' },
+      'gateway': { el: document.getElementById('input_gateway'), placeholder: '[Insert gateway problem]' },
+      'cta': { el: document.getElementById('input_cta'), placeholder: '[Insert the end CTA of the free report here]' }
+    };
+
+    const displayPrompt = document.getElementById('displayPrompt');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function updatePrompt() {
+      let currentPrompt = template;
+      for (const key in inputs) {
+        const val = inputs[key].el.value.trim();
+        const placeholder = inputs[key].placeholder;
+        if (val) {
+          currentPrompt = currentPrompt.split(placeholder).join(val);
+        }
+      }
+      displayPrompt.textContent = currentPrompt;
+    }
+
+    // Add event listeners to all textareas
+    for (const key in inputs) {
+      inputs[key].el.addEventListener('input', updatePrompt);
+    }
+
+    // Initial load
+    updatePrompt();
+
+    // Copy to clipboard logic
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = displayPrompt.textContent;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btnText = copyBtn.querySelector('.button-text');
+        copyBtn.classList.add('copied');
+        btnText.textContent = 'Copied!';
+        
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          btnText.textContent = 'Copy Prompt';
+        }, 2000);
+      });
+    });
+  </script>
+
+</body>
+</html>
