@@ -1,0 +1,44 @@
+<table style="background: #ffffff; font-family: Arial, Helvetica, sans-serif; color: #333333; width: 100%; app-region: no-drag !important;" border="0" width="100%" cellspacing="0" cellpadding="0">
+<tbody style="app-region: no-drag !important;" valign="middle">
+<tr style="app-region: no-drag !important;" valign="inherit">
+<td style="width: 15.115%; padding: 8px 18px 8px 0px; app-region: no-drag !important;" valign="inherit"> <img style="display: block; width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 0px; app-region: no-drag !important;" src="https://spmukherjee.co.in/name.jpg" alt="Siva Prasad Mukherjee" width="100" data-clarity-loaded="kytx9b" />
+<table style="margin-top: 10px; width: 100%; app-region: no-drag !important;" border="0" width="100%" cellspacing="0" cellpadding="0">
+<tbody style="app-region: no-drag !important;" valign="middle">
+<tr style="app-region: no-drag !important;" valign="inherit">
+<td style="padding-right: 6px; app-region: no-drag !important;" valign="inherit"><a style="text-decoration: none; app-region: no-drag !important;" href="#"><span style="display: block; width: 22px; height: 22px; background: #1877f2; color: #ffffff; border-radius: 3px; text-align: center; line-height: 22px; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; app-region: no-drag !important;"> f </span> </a></td>
+<td style="padding-right: 6px; app-region: no-drag !important;" valign="inherit"><a style="text-decoration: none; app-region: no-drag !important;" href="#"><span style="display: block; width: 22px; height: 22px; background: #222222; color: #ffffff; border-radius: 3px; text-align: center; line-height: 22px; font-size: 11px; font-family: Arial, sans-serif; app-region: no-drag !important;"> X </span> </a></td>
+<td style="app-region: no-drag !important;" valign="inherit"><a style="text-decoration: none; app-region: no-drag !important;" href="#"><span style="display: block; width: 22px; height: 22px; background: #0a66c2; color: #ffffff; border-radius: 3px; text-align: center; line-height: 22px; font-size: 10px; font-weight: bold; font-family: Arial, sans-serif; app-region: no-drag !important;">in </span> </a></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 3px 0px 8px; app-region: no-drag !important; width: 80.8142%;" valign="inherit">
+<div style="font-size: 28px; line-height: 32px; font-weight: bold; color: #303030; white-space: nowrap; app-region: no-drag !important;">Siva Prasad Mukherjee</div>
+<div style="font-size: 15px; line-height: 21px; color: #555555; white-space: nowrap; app-region: no-drag !important;">Digital Creator</div>
+<table style="margin-top: 6px; margin-bottom: 9px; width: 100%; app-region: no-drag !important;" border="0" width="100%" cellspacing="0" cellpadding="0">
+<tbody style="app-region: no-drag !important;" valign="middle">
+<tr style="app-region: no-drag !important;" valign="inherit">
+<td style="width: 215px; height: 1px; background: #dddddd; font-size: 1px; line-height: 1px; app-region: no-drag !important;" valign="inherit" height="1"> </td>
+</tr>
+</tbody>
+</table>
+<table style="margin-bottom: 6px; width: 100%; app-region: no-drag !important;" border="0" width="100%" cellspacing="0" cellpadding="0">
+<tbody style="app-region: no-drag !important;" valign="middle">
+<tr style="app-region: no-drag !important;" valign="inherit">
+<td style="width: 37px; app-region: no-drag !important;" valign="inherit"><span style="display: block; width: 20px; height: 20px; background: #333333; color: #ffffff; border-radius: 50%; text-align: center; line-height: 20px; font-size: 11px; font-family: Arial, sans-serif; app-region: no-drag !important;"> ✉ </span></td>
+<td style="font-size: 14px; line-height: 20px; color: #444444; white-space: nowrap; app-region: no-drag !important;" valign="inherit"><a style="color: #444444; text-decoration: none; app-region: no-drag !important;" href="mailto:spmhqo@gmail.com ">spmhqo@gmail.com </a></td>
+</tr>
+</tbody>
+</table>
+<table style="app-region: no-drag !important; width: 100%;" border="0" width="100%" cellspacing="0" cellpadding="0">
+<tbody style="app-region: no-drag !important;" valign="middle">
+<tr style="app-region: no-drag !important;" valign="inherit">
+<td style="width: 37px; app-region: no-drag !important;" valign="inherit"><span style="display: block; width: 20px; height: 20px; background: #333333; color: #ffffff; border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px; font-family: Arial, sans-serif; app-region: no-drag !important;"> ⊕ </span></td>
+<td style="font-size: 14px; line-height: 20px; color: #444444; white-space: nowrap; app-region: no-drag !important;" valign="inherit"><a style="color: #444444; text-decoration: none; app-region: no-drag !important;" href="https://medium.com/@spmohq" target="_blank">https://medium.com/@spmohq </a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
