@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Social Media Post Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #064e3b; 
+      --bg-gradient-end: #020617;
+      --card-bg: rgba(16, 185, 129, 0.05);
+      --card-border: rgba(16, 185, 129, 0.2);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-heading: #ffffff;
+      --accent-primary: #10b981; 
+      --accent-hover: #34d399;
+      --accent-success: #059669;
+      --code-bg: rgba(0, 0, 0, 0.4);
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      flex-grow: 1;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      color: var(--accent-primary);
+      text-transform: lowercase;
+      margin-top: -10px;
+      font-weight: 400;
+    }
+
+    /* Navigation Styling */
+    .input-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    .nav-btn {
+      padding: 10px 16px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+
+    .nav-btn.active {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    /* Input Section Styles */
+    .input-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+    }
+
+    .field-group {
+      display: none;
+      flex-direction: column;
+    }
+
+    .field-group.active {
+      display: flex;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--accent-primary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    /* Prompt Card Styles */
+    .prompt-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prompt-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prompt-label::after {
+      content: "";
+      height: 1px;
+      flex-grow: 1;
+      background: var(--card-border);
+    }
+
+    .prompt-text {
+      background-color: var(--code-bg);
+      padding: 24px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #ecfdf5;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    /* Button Styles */
+    .copy-button {
+      align-self: flex-end;
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: var(--accent-primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .copy-button:hover {
+      background-color: var(--accent-hover);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .copy-button.copied {
+      background-color: var(--accent-success);
+    }
+
+    .icon { width: 18px; height: 18px; }
+    .copied-icon { display: none; }
+    .copy-button.copied .copy-icon { display: none; }
+    .copy-button.copied .copied-icon { display: inline-block; }
+
+    footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Social Media Post</h1>
+      <h2>for X, Facebook Page, Linkedin</h2>
+    </header>
+
+    <nav class="input-nav">
+      <button class="nav-btn active" onclick="switchTab(0)">Package Details</button>
+      <button class="nav-btn" onclick="switchTab(1)">PDF Title</button>
+      <button class="nav-btn" onclick="switchTab(2)">PDF Sub-Title</button>
+      <button class="nav-btn" onclick="switchTab(3)">PDF Body</button>
+      <button class="nav-btn" onclick="switchTab(4)">Gateway Problem</button>
+      <button class="nav-btn" onclick="switchTab(5)">PDF CTA</button>
+      <button class="nav-btn" onclick="switchTab(6)">Platform</button>
+    </nav>
+
+    <div class="input-section">
+      <div class="field-group active">
+        <label>Package Details</label>
+        <textarea id="packageInput" placeholder="[Insert package details here]"></textarea>
+      </div>
+      <div class="field-group">
+        <label>PDF Title</label>
+        <textarea id="titleInput" placeholder="[Insert title]"></textarea>
+      </div>
+      <div class="field-group">
+        <label>PDF Sub-Title</label>
+        <textarea id="subtitleInput" placeholder="[Insert sub-title]"></textarea>
+      </div>
+      <div class="field-group">
+        <label>PDF Body</label>
+        <textarea id="bodyInput" placeholder="[Insert the complete body of the free report]"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Gateway Problem</label>
+        <textarea id="gatewayInput" placeholder="[Insert gateway problem]"></textarea>
+      </div>
+      <div class="field-group">
+        <label>PDF CTA</label>
+        <textarea id="ctaInput" placeholder="[Insert the end CTA of the free report here]"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Target Platform</label>
+        <textarea id="platformInput" placeholder="e.g. X / Facebook Page / LinkedIn"></textarea>
+      </div>
+    </div>
+
+    <main>
+      <div class="prompt-card">
+        <div class="prompt-label">Strategy Prompt</div>
+        <pre id="displayPrompt" class="prompt-text">Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+ROLE
+
+You are a strategic content ideation and conversion-focused social media content strategist.
+
+Your job is to identify social media post ideas that can quickly attract the attention of the right audience, communicate one clear idea or message, create interest or discussion, and naturally encourage relevant readers to take the next step toward the free report.
+
+The social media post must provide genuine standalone value while remaining concise, focused, and appropriate for the selected platform.
+
+CONTEXT
+
+Target Platform:
+
+[Insert Platform Name: X / Facebook Page / LinkedIn / etc.]
+
+The ultimate package I want to sell through the free report:
+
+[Insert package details here]
+
+Details of the free report:
+
+Title:
+[Insert title]
+
+Sub-title:
+[Insert sub-title]
+
+Body:
+[Insert the complete body of the free report]
+
+The gateway problem addressed by the free report:
+
+[Insert gateway problem]
+
+Prompts I used to identify the gateway problem and assess its lead-magnet potential:
+
+1. Look at this product and identify 10 smaller problems a potential customer might experience immediately before they need it. Focus on problems that could be solved or partly solved with a short free report.
+
+2. Which of these would my ideal customer actually WANT enough to give me their email address?
+
+End CTA of the free report:
+
+[Insert the end CTA of the free report here]
+
+The content funnel is:
+
+Social Media Post
+↓
+Attention
+↓
+Interest / Recognition
+↓
+One Clear Message
+↓
+Reader recognises the relevance of the gateway problem
+↓
+Reader develops a genuine need or desire for the next step
+↓
+Free Report Download
+↓
+Free Report provides the actionable process / next-step solution
+↓
+Free Report leads toward the Ultimate Package
+
+The ultimate objective of the proposed social media post:
+
+To generate relevant interest in and downloads of the above-mentioned free report.
+
+Therefore, do not optimise merely for impressions, likes, shares, comments, curiosity, or virality.
+
+Prioritise posts that attract the right readers, communicate a meaningful idea quickly, and create a natural reason for relevant readers to take the next step toward the free report.
+
+Treat conversion as the result of relevance, genuine value, and reader need—not as a reason to use persuasive or promotional tactics inside the post.
+
+Platform-specific consideration:
+
+Generate the post ideas specifically for the selected platform.
+
+Adapt the hook, wording, tone, level of detail, presentation style, reader interaction, and CTA direction to the selected platform's typical content consumption and engagement behaviour.
+
+Do not assume that the same hook, format, length, tone, or CTA will work equally well across different platforms.
+
+The selected platform should influence how the content is expressed, but it must not override the core Social Media-specific Post Policy provided below.
+
+Social media-specific post policy:
+
+মূল উদ্দেশ্য
+
+খুব অল্প সময়ে মনোযোগ আকর্ষণ করা, একটি মাত্র ধারণা বা বার্তা পৌঁছে দেওয়া, আগ্রহ সৃষ্টি করা, আলোচনা শুরু করা এবং পরবর্তী পদক্ষেপে উৎসাহিত করা।
+
+মূল কাঠামো
+
+হুক → মূল বার্তা → সংক্ষিপ্ত ব্যাখ্যা বা উদাহরণ → Call to Action (মন্তব্য, শেয়ার, লিংকে ক্লিক, ইত্যাদি)
+
+TASK
+
+Give me 5 social media post ideas specifically suited to the selected platform, with the strongest potential to generate relevant interest in and downloads of the free report.
+
+For each post idea, identify:
+
+1. Post Idea / Working Hook
+
+The central idea, message, or hook around which the post will be built.
+
+2. Reader Problem / Tension
+
+The specific problem, question, desire, confusion, mistake, observation, or tension that can quickly capture the attention of the target reader.
+
+This does not have to be an exact restatement of the gateway problem. It may be a specific entry point that naturally leads the reader toward the gateway problem.
+
+3. Core Message
+
+The single main idea or message the post should communicate.
+
+The post must have one dominant message rather than several competing ideas.
+
+4. What the Post Will Deliver
+
+The specific insight, realisation, perspective, explanation, example, or practical value the reader will receive from the post.
+
+The post should complete within the scope of its single core idea.
+
+5. Connection to the Gateway Problem
+
+Explain how the post naturally connects its central message to the gateway problem addressed by the free report.
+
+6. Why the Free Report Becomes a Natural Next Step
+
+Explain what interest, recognition, unanswered question, need, or desire created by the post could naturally lead the relevant reader toward the free report.
+
+The reason must arise naturally from what the post establishes, rather than from artificial persuasion.
+
+7. Suggested CTA Direction
+
+Describe the most appropriate next action for the reader, such as:
+
+* Comment
+* Share
+* Save
+* Click the link
+* Download the free report
+* Read another piece of content
+
+Choose the CTA based on the role and objective of the specific post and the selected platform rather than automatically using the same CTA for every idea.
+
+8. Conversion Logic
+
+Briefly explain the progression:
+
+Hook
+→ Core Message
+→ Interest / Recognition
+→ Gateway Problem
+→ Genuine Need for the Next Step
+→ CTA
+→ Free Report
+→ Ultimate Package
+
+IMPORTANT REQUIREMENTS
+
+* The post must follow the Social Media-specific Post Policy strictly: attract attention quickly, communicate one clear idea or message, create interest or discussion, and encourage an appropriate next step.
+* The post must be specifically suited to the selected platform.
+* The post must have one dominant idea. Do not combine multiple unrelated ideas into one post.
+* The hook must be directly relevant to the core message. Do not use a sensational hook that the content cannot genuinely support.
+* The post must provide genuine standalone value even though it is concise.
+* The post should be complete within the scope of its single core idea.
+* Do not deliberately make the post incomplete merely to create dependence on the free report.
+* Do not turn the post into a mini-article or a compressed version of the free report.
+* Do not simply repeat the content of the free report.
+* The post may provide a complete insight, explanation, perspective, or example around its single core idea, but it should not reproduce the complete actionable process for solving the problem contained in the free report.
+* Do not provide the complete actionable problem-solving process inside the post when that process belongs to the free report.
+* Clearly distinguish the value delivered by the social media post from the value delivered by the free report.
+* The connection between the post and the free report must be natural and logically justified.
+* Do not force a free-report CTA when the specific post is better suited to generating discussion, saving, sharing, or another meaningful action.
+* When the post is intended to drive free-report downloads, the CTA should make the free report feel like a relevant next step rather than an unrelated promotion.
+* Do not use clickbait merely to increase attention.
+* Do not use exaggerated promises, artificial urgency, fear-based persuasion, or manipulative tactics merely to increase conversion.
+* The 5 ideas must represent genuinely different content angles, hooks, messages, or reader-entry points, not merely five variations of the same post.
+* Prefer a naturally strong connection to the free report over a superficially persuasive one.
+* If an apparent connection between a post idea and the free report is weak, do not force the connection. Develop a different idea instead.
+* Select the 5 ideas based on:
+
+  1. Relevance to the target reader
+  2. Strength and relevance of the hook
+  3. Clarity of the single core message
+  4. Value delivered in a short format
+  5. Natural connection to the gateway problem
+  6. Natural relevance of the CTA / free report
+  7. Suitability for the selected platform
+  8. Meaningful differentiation from the other ideas
+* Do not rank, score, or declare one of the five ideas to be the overall winner. The task is to generate and develop five distinct ideas.
+* Follow the provided Social Media-specific Post Policy strictly.
+* Do not invent information about the ultimate package, free report, target reader, gateway problem, or selected platform that is not supported by the information provided.
+
+OUTPUT FORMAT
+
+First, briefly state the core content-to-conversion opportunity you identified from the provided context and how the selected platform affects the opportunity.
+
+Then provide the 5 social media post ideas in a table using these columns:
+
+| # | Post Idea / Working Hook | Reader Problem / Tension | Core Message | What the Post Will Deliver | Why the Free Report Becomes the Natural Next Step | Suggested CTA Direction |
+
+After the table, provide the conversion logic for each idea.
+
+For each idea, briefly explain:
+
+Hook
+→ Core Message
+→ Interest / Recognition
+→ Gateway Problem
+→ Natural Need for Next Step
+→ CTA
+→ Free Report
+
+Do not write the full social media posts. The task is to identify and develop the 5 post ideas only.</pre>
+        <button class="copy-button" onclick="copyText('displayPrompt', this)">
+          <svg class="icon copy-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          <svg class="icon copied-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M4.5 12.75l6 6 9-13.5" /></svg>
+          <span class="button-text">Copy Prompt</span>
+        </button>
+      </div>
+    </main>
+
+    <footer>
+        Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </footer>
+  </div>
+
+  <script>
+    const inputs = {
+      '[Insert package details here]': document.getElementById('packageInput'),
+      '[Insert title]': document.getElementById('titleInput'),
+      '[Insert sub-title]': document.getElementById('subtitleInput'),
+      '[Insert the complete body of the free report]': document.getElementById('bodyInput'),
+      '[Insert gateway problem]': document.getElementById('gatewayInput'),
+      '[Insert the end CTA of the free report here]': document.getElementById('ctaInput'),
+      '[Insert Platform Name: X / Facebook Page / LinkedIn / etc.]': document.getElementById('platformInput')
+    };
+
+    const displayPrompt = document.getElementById('displayPrompt');
+    const basePrompt = displayPrompt.textContent;
+
+    function switchTab(index) {
+      const fieldGroups = document.querySelectorAll('.field-group');
+      const navBtns = document.querySelectorAll('.nav-btn');
+      
+      fieldGroups.forEach((group, i) => {
+        group.classList.toggle('active', i === index);
+      });
+      
+      navBtns.forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+    }
+
+    function updateDisplay() {
+      let updatedText = basePrompt;
+      for (const [placeholder, element] of Object.entries(inputs)) {
+        const val = element.value.trim() || placeholder;
+        // Use split/join for global replacement
+        updatedText = updatedText.split(placeholder).join(val);
+      }
+      displayPrompt.textContent = updatedText;
+    }
+
+    Object.values(inputs).forEach(el => el.addEventListener('input', updateDisplay));
+
+    function copyText(elementId, btn) {
+      const text = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = btn.querySelector('.button-text');
+        const prevText = btnText.textContent;
+        btnText.textContent = 'Copied!';
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btnText.textContent = prevText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on load
+    updateDisplay();
+  </script>
+
+</body>
+</html>
