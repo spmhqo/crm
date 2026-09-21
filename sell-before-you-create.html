@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sell Before You Create</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #064e3b; 
+      --bg-gradient-end: #020617;
+      --card-bg: rgba(16, 185, 129, 0.05);
+      --card-border: rgba(16, 185, 129, 0.2);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-heading: #ffffff;
+      --accent-primary: #10b981; 
+      --accent-hover: #34d399;
+      --accent-success: #059669;
+      --code-bg: rgba(0, 0, 0, 0.4);
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(0, 0, 0, 0.3);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      flex-grow: 1;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    /* Input Section Styles */
+    .input-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 650px) {
+      .input-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--accent-primary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    textarea, input[type="date"], select {
+      width: 100%;
+      padding: 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    textarea:focus, input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+    select option {
+        background-color: #020617;
+        color: white;
+    }
+
+    /* Prompt Card Styles */
+    .prompt-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .prompt-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-primary);
+    }
+    .prompt-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prompt-label::after {
+      content: "";
+      height: 1px;
+      flex-grow: 1;
+      background: var(--card-border);
+    }
+    .prompt-text {
+      background-color: var(--code-bg);
+      padding: 24px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #ecfdf5;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    /* Button Styles */
+    .copy-button {
+      align-self: flex-end;
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: var(--accent-primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .copy-button:hover {
+      background-color: var(--accent-hover);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+    }
+    .copy-button.copied {
+      background-color: var(--accent-success);
+    }
+    .icon { width: 18px; height: 18px; }
+    .copied-icon { display: none; }
+    .copy-button.copied .copy-icon { display: none; }
+    .copy-button.copied .copied-icon { display: inline-block; }
+
+    footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Sell Before You Create</h1>
+    </header>
+
+    <div class="input-section">
+      <div class="field-group">
+        <label for="whoInput">[WHO THEY ARE]</label>
+        <textarea id="whoInput" placeholder="e.g. busy solo founders..."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="problemInput">[THE PROBLEM]</label>
+        <textarea id="problemInput" placeholder="e.g. struggling to write newsletters..."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="nameInput">[PRODUCT NAME]</label>
+        <textarea id="nameInput" placeholder="e.g. The 10-Min Newsletter Pack..."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="resultInput">[RESULT]</label>
+        <textarea id="resultInput" placeholder="e.g. publish high-quality content in minutes..."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="getInput">[WHAT THEY GET]</label>
+        <textarea id="getInput" placeholder="e.g. 52 proven templates and a strategy guide..."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="priceInput">[PRICE]</label>
+        <textarea id="priceInput" placeholder="e.g. $47 (pre-order price)..."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="dateInput">[DATE]</label>
+        <input type="date" id="dateInput">
+      </div>
+      <div class="field-group">
+        <label for="channelInput">[TEST CHANNEL]</label>
+        <select id="channelInput">
+          <option value="EMAIL">EMAIL</option>
+          <option value="FACEBOOK POST">FACEBOOK POST</option>
+          <option value="GROUP POST">GROUP POST</option>
+          <option value="DIRECT MESSAGE">DIRECT MESSAGE</option>
+          <option value="OTHER">OTHER</option>
+        </select>
+      </div>
+    </div>
+
+    <main>
+      <div class="prompt-card">
+        <div class="prompt-label">Pre-Creation Offer Prompt</div>
+        <pre id="displayPrompt" class="prompt-text">I'm testing a small information product BEFORE creating it.
+
+The potential buyers are:
+[WHO THEY ARE]
+
+Their problem is:
+[THE PROBLEM]
+
+My product is:
+[PRODUCT NAME]
+
+It helps them:
+[RESULT]
+
+They will receive:
+[WHAT THEY GET]
+
+The price is:
+[PRICE]
+
+It will be available:
+[DATE]
+
+I want to test this offer using:
+[EMAIL / FACEBOOK POST / GROUP POST / DIRECT MESSAGE / OTHER]
+
+Write a short, natural message that explains the problem, introduces the product and makes a clear offer.
+Do NOT ask whether people think it's a good idea.
+Do NOT ask whether they'd hypothetically be interested.
+Make it clear that this is a new product coming on the date above and that the buyer is getting early access or pre-ordering it.
+Don't invent testimonials, scarcity, results or claims I haven't supplied.
+End with a clear invitation to buy.
+Keep it conversational rather than sounding like a formal sales page.</pre>
+        <button class="copy-button" onclick="copyText('displayPrompt', this)">
+          <svg class="icon copy-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          <svg class="icon copied-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M4.5 12.75l6 6 9-13.5" /></svg>
+          <span class="button-text">Copy Prompt</span>
+        </button>
+      </div>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const inputs = {
+      '[WHO THEY ARE]': document.getElementById('whoInput'),
+      '[THE PROBLEM]': document.getElementById('problemInput'),
+      '[PRODUCT NAME]': document.getElementById('nameInput'),
+      '[RESULT]': document.getElementById('resultInput'),
+      '[WHAT THEY GET]': document.getElementById('getInput'),
+      '[PRICE]': document.getElementById('priceInput'),
+      '[DATE]': document.getElementById('dateInput'),
+      '[EMAIL / FACEBOOK POST / GROUP POST / DIRECT MESSAGE / OTHER]': document.getElementById('channelInput')
+    };
+
+    const displayPrompt = document.getElementById('displayPrompt');
+    const basePrompt = displayPrompt.textContent;
+
+    function updateDisplay() {
+      let updatedText = basePrompt;
+      for (const [placeholder, element] of Object.entries(inputs)) {
+        let val = element.value.trim();
+        
+        // Handling Date formatting for better readability in the prompt
+        if (element.type === 'date' && val) {
+            const dateObj = new Date(val);
+            val = dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        const finalVal = val || placeholder;
+        updatedText = updatedText.split(placeholder).join(finalVal);
+      }
+      displayPrompt.textContent = updatedText;
+    }
+
+    // Add listeners to all inputs
+    Object.values(inputs).forEach(el => el.addEventListener('input', updateDisplay));
+
+    function copyText(elementId, btn) {
+      const text = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = btn.querySelector('.button-text');
+        const prevText = btnText.textContent;
+        btnText.textContent = 'Copied!';
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btnText.textContent = prevText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
